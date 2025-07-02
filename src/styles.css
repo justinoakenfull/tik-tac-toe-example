@@ -1,0 +1,55 @@
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.game {
+    flex: 1;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.game-board {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 1;
+}
+
+.board-row {
+    display: flex;
+    flex: 1;
+}
+
+.square {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #999;
+    background: #fff;
+    font-size: clamp(1rem, 8vmin, 18rem);
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+}
+
+.game-info {
+    margin-left: 20px;
+}
+
+.status {
+    margin-bottom: 10px;
+}
