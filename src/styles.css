@@ -1,55 +1,235 @@
-html,
-body,
-#root {
-    height: 100%;
-    margin: 0;
+/* ----------------------------------------
+   1. Import a modern font
+---------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+/* ----------------------------------------
+   2. CSS Variables (theme)
+---------------------------------------- */
+:root {
+    /* Colors */
+    --bg-page: #f0f2f5;
+    --bg-board: #ffffff;
+    --bg-square: #fafafa;
+    --accent: #5c5ec4;
+
+    --text-main: #2e3338;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+
+    /* Sizing */
+    --radius: 0.5rem;
+    --gap: 0.75rem;
+    --transition: 0.25s ease;
+    --font-base: 1rem;
+    --font-large: clamp(1.5rem, 6vmin, 3rem);
 }
 
+/* ----------------------------------------
+   3. Global Reset & Base Styles
+---------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg-page);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+}
+
+#root,
 .App {
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
+/* ----------------------------------------
+   4. Header
+---------------------------------------- */
+.App-header {
+    background: var(--accent);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ----------------------------------------
+   5. Main Game Layout
+---------------------------------------- */
 .game {
     flex: 1;
     display: flex;
-    align-items: start;
     justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
+    padding: var(--gap);
+}
+
+.game-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--gap);
 }
 
 .game-board {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    gap: var(--gap);
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
     aspect-ratio: 1;
+    background: var(--bg-board);
+    padding: var(--gap);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
 }
 
+/* Flatten rows so squares become direct grid children */
 .board-row {
-    display: flex;
-    flex: 1;
+    display: contents;
 }
 
+/* ----------------------------------------
+   6. Squares
+---------------------------------------- */
 .square {
-    flex: 1;
+    background: var(--bg-square);
+    border: 2px solid #9e9e9e;
+    border-radius: var(--radius);
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #999;
+    font-size: var(--font-large);
+    font-weight: 600;
+    color: var(--accent);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.square:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
     background: #fff;
-    font-size: clamp(1rem, 8vmin, 18rem);
-    margin: 0;
-    min-width: 0;
-    min-height: 0;
 }
 
+.square:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+    background: #f5f5f5;
+}
+
+/* ----------------------------------------
+   7. Game Info & Links
+---------------------------------------- */
 .game-info {
-    margin-left: 20px;
+    margin-left: var(--gap);
+    font-size: var(--font-base);
 }
 
-.status {
-    margin-bottom: 10px;
+.App-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--transition);
+}
+
+.App-link:hover {
+    color: darken(var(--accent), 10%);
+}
+
+/* ----------------------------------------
+   Button Base
+---------------------------------------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.2rem;
+    margin: var(--gap);
+    font-size: var(--font-base);
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition:
+        background var(--transition),
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+/* ----------------------------------------
+   Hover & Active
+---------------------------------------- */
+.btn:hover {
+    filter: brightness(0.9);
+    /* a slightly darker accent */
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn:active {
+    filter: brightness(0.8);
+    /* a bit darker still */
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ----------------------------------------
+   Focus (accessibility)
+---------------------------------------- */
+.btn:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+.colour-picker {
+    position: fixed;
+    bottom: var(--gap);
+    right: var(--gap);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--font-base);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--text-main);
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+}
+
+.colour-picker:hover {
+    filter: brightness(0.8);
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.colour-picker:active {
+    filter: brightness(0.7);
+    transform: translateY(0);
+    box-shadow: var(--shadow-md);
+}
+
+.colour-picker input {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
 }

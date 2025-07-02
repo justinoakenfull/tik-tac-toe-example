@@ -24,7 +24,7 @@ export default function Game() {
         }
         return (
             <li>
-                <button onClick={() => jumpTo(move)}>{description}</button>
+                <button className='btn' onClick={() => jumpTo(move)}>{description}</button>
             </li>
         );
     });
@@ -44,7 +44,7 @@ export default function Game() {
 
     return (
         <div className="game">
-            <div className="game-board">
+            <div className="game-container">
                 <Board isXnext={isXnext} squares={currentSquares} onPlay={handlePlay} />
             </div>
             <div className="game-info">
